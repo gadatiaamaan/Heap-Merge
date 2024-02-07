@@ -2,6 +2,8 @@
 #include <vector>
 #include <stack>
 
+using namespace std;
+
 // Node class for representing elements in the binary tree
 class Node {
 public:
@@ -35,7 +37,7 @@ public:
     bool isEmpty() const { return root == nullptr; }
 
     // Function to convert the heap into a vector
-    std::vector<int> toArray();
+    vector<int> toArray();
 
 private:
     Node *root;     // Pointer to the root of the heap
@@ -59,10 +61,10 @@ void Heap::merge(Node *&rootA, Node *rootB) {
         rootA = rootB;
     } else if (rootB != nullptr) {
         if (rootB->value < rootA->value) {
-            std::swap(rootA, rootB);
+            swap(rootA, rootB);
         }
         merge(rootA->right, rootB);
-        std::swap(rootA->left, rootA->right);
+        swap(rootA->left, rootA->right);
     }
 }
 
@@ -78,7 +80,7 @@ void Heap::merge(Heap &other) {
 // Function to extract the minimum value from the heap
 int Heap::extractMin() {
     if (isEmpty()) {
-        throw std::runtime_error("Heap is empty");
+        throw runtime_error("Heap is empty");
     }
     int minValue = root->value;
     Node *oldRoot = root;
@@ -99,9 +101,9 @@ void Heap::clear(Node *root) {
 }
 
 // Function to convert the heap into a vector
-std::vector<int> Heap::toArray() {
-    std::vector<int> result;
-    std::stack<Node*> stack;
+vector<int> Heap::toArray() {
+    vector<int> result;
+    stack<Node*> stack;
     Node* current = root;
 
     while (current != nullptr || !stack.empty()) {
@@ -129,33 +131,33 @@ int main() {
     Heap heapB;
 
     // Insert elements into heap A
-    std::cout << "Heap A: ";
+    cout << "Heap A: ";
     for (int value : arrayA) {
-        std::cout << value << " ";
+        cout << value << " ";
         heapA.insert(value);
     }
-    std::cout << std::endl;
+    cout << endl;
 
     // Insert elements into heap B
-    std::cout << "Heap B: ";
+    cout << "Heap B: ";
     for (int value : arrayB) {
-        std::cout << value << " ";
+        cout << value << " ";
         heapB.insert(value);
     }
-    std::cout << std::endl;
+    cout << endl;
 
     // Merge heap B into heap A
     heapA.merge(heapB);
 
     // Convert the merged heap to a vector
-    std::vector<int> mergedHeap = heapA.toArray();
+    vector<int> mergedHeap = heapA.toArray();
 
     // Output the merged heap
-    std::cout << "Merged Heap: ";
+    cout << "Merged Heap: ";
     for (int value : mergedHeap) {
-        std::cout << value << " ";
+        cout << value << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     return 0;
 }
